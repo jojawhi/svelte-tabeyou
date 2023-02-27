@@ -1,5 +1,6 @@
 <script>
 	import Counter from './Counter.svelte';
+	import Auth from '$lib/components/Auth.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
 </script>
@@ -9,6 +10,7 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
+<Auth />
 <section>
 	<h1>
 		<span class="welcome">
