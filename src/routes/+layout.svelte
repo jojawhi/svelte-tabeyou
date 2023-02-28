@@ -4,15 +4,15 @@
 
 	import { auth } from '$lib/client/firebaseConfig';
 	import { authStore } from '../stores/authStore';
-	import {onMount} from 'svelte'
-	import {browser} from '$app/environment'
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 	import type { Updater } from 'svelte/store';
 
 	onMount(() => {
-		const unsubscribe = auth.onAuthStateChanged((user) => {
+		const unsubscribe = auth.onAuthStateChanged(user => {
 			console.log(user);
 			authStore.update((current: any) => {
-				return {...current, isLoading: false, currentUser: user};
+				return { ...current, isLoading: false, currentUser: user };
 			});
 
 			if (browser) {
@@ -23,12 +23,10 @@
 		});
 		return unsubscribe;
 	});
-
-
 </script>
 
 <div class="app">
-	<Header />
+	<Header user={$authStore.currentUser} />
 
 	<main>
 		<slot />

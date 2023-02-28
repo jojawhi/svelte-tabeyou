@@ -1,7 +1,11 @@
-<script>
+<script lang="ts">
+	import { authStore } from './../stores/authStore';
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
+	import type { User } from 'firebase/auth';
+
+	export let user: User | null;
 </script>
 
 <header>
@@ -12,23 +16,30 @@
 	</div>
 
 	<nav>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
+		<!-- <svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
-		</svg>
+		</svg> -->
 		<ul>
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
+				{#if user}
+					<a href="/dashboard">Dashboard</a>
+				{:else}
+					<a href="/">Home</a>
+				{/if}
 			</li>
-			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-				<a href="/about">About</a>
+			<li aria-current={$page.url.pathname === '/recipes' ? 'page' : undefined}>
+				<a href="/recipes">Recipes</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/sverdle') ? 'page' : undefined}>
-				<a href="/sverdle">Sverdle</a>
+			<li aria-current={$page.url.pathname === '/meal-plans' ? 'page' : undefined}>
+				<a href="/meal-plans">Meal Plans</a>
+			</li>
+			<li aria-current={$page.url.pathname === '/grocery-lists' ? 'page' : undefined}>
+				<a href="/grocery-lists">Grocery Lists</a>
 			</li>
 		</ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
+		<!-- <svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
-		</svg>
+		</svg> -->
 	</nav>
 
 	<div class="corner">
@@ -69,7 +80,7 @@
 		--background: rgba(255, 255, 255, 0.7);
 	}
 
-	svg {
+	/* svg {
 		width: 2em;
 		height: 3em;
 		display: block;
@@ -77,7 +88,7 @@
 
 	path {
 		fill: var(--background);
-	}
+	} */
 
 	ul {
 		position: relative;

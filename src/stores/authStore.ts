@@ -10,7 +10,6 @@ import { writable, type Writable } from 'svelte/store';
 import { auth } from '$lib/client/firebaseConfig';
 import type { User } from 'firebase/auth';
 import { addUserToDB } from '$lib/firebase/firebaseUtils';
-// import type { Updater } from 'svelte/store';
 
 type AuthStoreState = {
 	isLoading: boolean;
@@ -44,7 +43,7 @@ export const authHandlers = {
 	},
 	updateEmail: async (newEmail: string) => {
 		if (auth.currentUser) {
-			authStore.update((storeState: AuthStoreState) => {
+			authStore.update((storeState: AuthStoreState): AuthStoreState => {
 				return {
 					...storeState,
 					currentUser: {
