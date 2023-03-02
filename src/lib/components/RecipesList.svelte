@@ -10,8 +10,8 @@
 		const recipes = await getRecipes(user.uid);
 		console.log(recipes);
 
-		recipeStore.update((current: any) => {
-			return { ...current, isLoading: false, recipes: recipes };
+		recipeStore.update((currentStoreState: any) => {
+			return { ...currentStoreState, isLoading: false, recipes: recipes };
 		});
 
 		return recipes;
@@ -20,9 +20,13 @@
 
 <div class="container">
 	{#each $recipeStore.recipes as recipe}
-		<p>{recipe}</p>
+		<a href={`/recipes/${recipe.slug}`}>{recipe.name}</a>
 	{/each}
 </div>
 
 <style>
+	.container {
+		display: flex;
+		flex-direction: column;
+	}
 </style>

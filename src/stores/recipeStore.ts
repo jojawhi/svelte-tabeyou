@@ -1,21 +1,10 @@
+import { addRecipeToDb, deleteRecipeFromDb, updateRecipeInDb } from '$lib/firebase/firebaseUtils';
+import type { RecipeType, IngredientType } from '../types';
 import { writable, type Writable } from 'svelte/store';
-
-type Ingredient = {
-	name: string | null;
-	amount: number | null;
-	unit: string | null;
-};
-
-type Recipe = {
-	author: string;
-	name: string;
-	ingredientList: Ingredient[];
-	instructions?: string[];
-};
 
 type RecipeStoreState = {
 	isLoading: boolean;
-	recipes: Recipe[];
+	recipes: RecipeType[];
 };
 
 const initialRecipeState: RecipeStoreState = {
@@ -25,4 +14,18 @@ const initialRecipeState: RecipeStoreState = {
 
 export const recipeStore: Writable<RecipeStoreState> = writable(initialRecipeState);
 
-export const recipeHandlers = {};
+export const recipeHandlers = {
+	addRecipe: async (uid: string, recipe: Recipe) => {
+		addRecipeToDb(uid, recipe);
+	},
+	deleteRecipe: (uid: string, recipeId: string) => {
+		deleteRecipeFromDb(uid, recipeId);
+	},
+	updateRecipe: (
+		uid: string,
+		recipeId: string,
+		updateData: Record<string, string | string[] | IngredientType[]>
+	) => {
+		updateRecipeInDb(uid, recipeId, updateData);
+	},
+};

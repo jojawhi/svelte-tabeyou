@@ -1,7 +1,7 @@
 <script lang="ts">
 	import AuthUpdate from '$lib/components/AuthUpdate.svelte';
 	import { authStore, authHandlers } from '../../stores/authStore';
-	import Recipes from '$lib/components/Recipes.svelte';
+	import Recipes from '$lib/components/RecipesList.svelte';
 
 	// let email = $authStore.currentUser ? $authStore.currentUser?.email : 'None';
 
@@ -46,12 +46,12 @@
 
 	.recipes-container {
 		padding: 1rem;
-		background-color: lightcoral;
+		background-color: lightgoldenrodyellow;
 	}
 
 	.grocery-list-container {
 		padding: 1rem;
-		background-color: lightseagreen;
+		background-color: lightblue;
 	}
 
 	.meal-plan-container {

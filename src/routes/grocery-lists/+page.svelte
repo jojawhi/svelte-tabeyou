@@ -35,9 +35,10 @@
 	<h1>Grocery Lists</h1>
 	{#each $groceryListStore.items as listItem, index}
 		<div class="item-container">
-			<input value={listItem.name} />
-			<input value={listItem.amount} />
-			<input value={listItem.unit} />
+			<input type="checkbox" />
+			<input bind:value={listItem.name} />
+			<input bind:value={listItem.amount} />
+			<input bind:value={listItem.unit} />
 			<button on:click={() => handleDeleteItem(index)}>Delete</button>
 		</div>
 	{/each}
