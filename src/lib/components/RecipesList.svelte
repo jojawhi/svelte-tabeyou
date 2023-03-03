@@ -22,11 +22,15 @@
 	{#each $recipeStore.recipes as recipe}
 		<a href={`/recipes/${recipe.slug}`}>{recipe.name}</a>
 	{/each}
+	<a href="/recipes/create">+ Add a new recipe</a>
 </div>
 
 <style>
 	.container {
 		display: flex;
 		flex-direction: column;
+		gap: 1rem;
+		padding: 1rem;
+		background-color: snow;
 	}
 </style>

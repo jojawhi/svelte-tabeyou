@@ -8,11 +8,12 @@
 
 	$: displayRecipe = data.recipes.find(recipe => {
 		return recipe.slug === $page.params.slug;
-	});
+	}) as RecipeType;
 </script>
 
-<div>
+<div class="container">
 	<Recipe recipe={displayRecipe} />
+
 	<!-- <h1>{name}</h1>
 	<div>
 		{#each ingredientList as ingred}
@@ -35,9 +36,8 @@
 <!-- <pre>
   {JSON.stringify($page, null, 2)}
 </pre> -->
-
-<!-- <style>
-	.ingredient-container {
-		display: flex;
+<style>
+	.container {
+		padding: 2rem;
 	}
-</style> -->
+</style>
