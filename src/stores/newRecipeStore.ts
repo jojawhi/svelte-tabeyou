@@ -4,7 +4,7 @@ import type { IngredientType, RecipeType } from '../types';
 const initialNewRecipeState: RecipeType = {
 	name: '',
 	ingredientList: [{ name: '', amount: undefined, unit: '' }],
-	instructions: [],
+	instructions: ['Add some instructions!'],
 	slug: '',
 };
 
@@ -27,19 +27,19 @@ export const newRecipeHandlers = {
 			};
 		});
 	},
-	addInstruction: (newInstruction: string) => {
+	addInstruction: () => {
 		newRecipeStore.update(storeState => {
 			return {
 				...storeState,
-				instructions: [...storeState.instructions, newInstruction],
+				instructions: [...storeState.instructions, 'New instruction'],
 			};
 		});
 	},
-	deleteInstruction: (newInstructionsArray: IngredientType[]) => {
+	deleteInstruction: (newInstructionsArray: string[]) => {
 		newRecipeStore.update(storeState => {
 			return {
 				...storeState,
-				ingredientList: newInstructionsArray,
+				instructions: newInstructionsArray,
 			};
 		});
 	},

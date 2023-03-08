@@ -28,30 +28,61 @@
 	const handleAddIngredient = () => {
 		newRecipeHandlers.addIngredient();
 	};
+
+	const handleDeleteInstruction = (index: number) => {
+		console.log('Delete index:', index);
+
+		const newInstructions = $newRecipeStore.instructions.filter((instruction, i) => {
+			return i !== index;
+		});
+
+		console.log('New instructions:', newInstructions);
+
+		newRecipeHandlers.deleteInstruction(newInstructions);
+	};
+
+	const handleAddInstruction = () => {
+		newRecipeHandlers.addInstruction();
+
+		console.log($newRecipeStore);
+	};
 </script>
 
-<div class="">
+<div class="container">
 	<h1>Create new recipe</h1>
 	<div>
 		<form class="container" action="POST">
 			<label for="name">Recipe Name:</label>
 			<input bind:value={newRecipe.name} type="text" name="name" />
 			<div class="container">
-				<label for="ingredient">Ingredients:</label>
+				<h2>Ingredients:</h2>
 				{#each $newRecipeStore.ingredientList as ingredient, index}
 					<div class="ingredient-container">
 						<input bind:value={ingredient.name} placeholder="ingredient" />
 						<input bind:value={ingredient.amount} placeholder="amount" />
 						<input bind:value={ingredient.unit} placeholder="unit" />
-						<button on:click={() => handleDeleteIngredient(index)}>Delete</button>
+						<button on:click|preventDefault={() => handleDeleteIngredient(index)}>Delete</button>
 					</div>
 				{/each}
-				<button on:click={() => handleAddIngredient()}>+ Add ingredient</button>
+				<button on:click|preventDefault={() => handleAddIngredient()}>+ Add ingredient</button>
 			</div>
-			<div class="container">
-				<label for="instruction">Instructions:</label>
-				<input bind:value={newRecipe.instructions[0]} type="text" name="instruction" />
-			</div>
+			{#if $newRecipeStore.instructions}
+				<div>
+					<h2>Instructions:</h2>
+					{#each $newRecipeStore.instructions as instruction, index}
+						<div class="container">
+							<div>
+								<span>{index + 1}</span>
+								<input bind:value={instruction} type="text" placeholder="Instruction" />
+								<button on:click|preventDefault={() => handleDeleteInstruction(index)}
+									>Delete</button
+								>
+							</div>
+						</div>
+					{/each}
+					<button on:click|preventDefault={() => handleAddInstruction()}>+ Add step</button>
+				</div>
+			{/if}
 
 			<button on:click|preventDefault={handleSubmit} type="submit">Save Recipe</button>
 		</form>

@@ -10,7 +10,7 @@ export type RecipeType = {
 	author?: string;
 	name: string;
 	ingredientList: IngredientType[];
-	instructions?: string[];
+	instructions: string[];
 	slug?: string;
 };
 
