@@ -46,35 +46,4 @@ export const groceryHandlers = {
 			};
 		});
 	},
-	// signIn: async (email: string, password: string) => {
-	// 	await signInWithEmailAndPassword(auth, email, password);
-	// },
-	// signUp: async (email: string, password: string) => {
-	// 	await createUserWithEmailAndPassword(auth, email, password);
-	// 	await addUserToDB(auth.currentUser?.uid, email);
-	// },
-	// signOut: () => {
-	// 	signOut(auth);
-	// },
-	// resetPassword: async (email: string) => {
-	// 	if (!email) {
-	// 		console.log('No email!');
-	// 		return;
-	// 	}
-	// 	await sendPasswordResetEmail(auth, email);
-	// },
-	// updateEmail: async (newEmail: string) => {
-	// 	if (auth.currentUser) {
-	// 		authStore.update((storeState: AuthStoreState): AuthStoreState => {
-	// 			return {
-	// 				...storeState,
-	// 				currentUser: {
-	// 					...storeState.currentUser,
-	// 					email: newEmail,
-	// 				},
-	// 			};
-	// 		});
-	// 		await updateEmail(auth.currentUser, newEmail);
-	// 	}
-	// },
 };

@@ -2,19 +2,15 @@
 	import type { PageData } from './$types';
 	import type { RecipeType } from '../../../types';
 	import { newRecipeStore, newRecipeHandlers } from '../../../stores/newRecipeStore';
+	import { addRecipeToDb } from '$lib/firebase/firebaseUtils';
 
 	export let data: PageData;
 
 	const { currentUser } = data;
 
-	let newRecipe: RecipeType = {
-		name: '',
-		ingredientList: [],
-		instructions: [],
-	};
-
 	const handleSubmit = () => {
-		console.log(newRecipe);
+		// console.log(newRecipe);
+		addRecipeToDb(currentUser.uid, $newRecipeStore);
 	};
 
 	const handleDeleteIngredient = (index: number) => {
@@ -53,13 +49,13 @@
 	<div>
 		<form class="container" action="POST">
 			<label for="name">Recipe Name:</label>
-			<input bind:value={newRecipe.name} type="text" name="name" />
+			<input bind:value={$newRecipeStore.name} type="text" name="name" />
 			<div class="container">
 				<h2>Ingredients:</h2>
 				{#each $newRecipeStore.ingredientList as ingredient, index}
 					<div class="ingredient-container">
 						<input bind:value={ingredient.name} placeholder="ingredient" />
-						<input bind:value={ingredient.amount} placeholder="amount" />
+						<input bind:value={ingredient.amount} placeholder="amount" type="number" step="0.25" />
 						<input bind:value={ingredient.unit} placeholder="unit" />
 						<button on:click|preventDefault={() => handleDeleteIngredient(index)}>Delete</button>
 					</div>

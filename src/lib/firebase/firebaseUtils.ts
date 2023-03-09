@@ -10,7 +10,7 @@ import {
 	updateDoc,
 	deleteDoc,
 } from 'firebase/firestore';
-import type { GroceryList, Ingredient, Recipe } from '../../types';
+import type { GroceryListType, IngredientType, RecipeType } from '../../types';
 
 // Users
 export const addUserToDB = async (uid: string | undefined, email: string) => {
@@ -40,7 +40,7 @@ export const addUserToDB = async (uid: string | undefined, email: string) => {
 export const getRecipes = async (uid: string) => {
 	const recipeQuery = query(collection(database, `users/${uid}/recipes`));
 
-	const recipes: Recipe[] = [];
+	const recipes: RecipeType[] = [];
 
 	const recipesSnapshot = await getDocs(recipeQuery);
 
@@ -51,7 +51,7 @@ export const getRecipes = async (uid: string) => {
 	return recipes;
 };
 
-export const addRecipeToDb = async (uid: string, recipe: Recipe) => {
+export const addRecipeToDb = async (uid: string, recipe: RecipeType) => {
 	const recipeRef = await addDoc(collection(database, `users/${uid}/recipes`), recipe);
 
 	console.log('New recipe ID:', recipeRef.id);
@@ -64,7 +64,7 @@ export const deleteRecipeFromDb = async (uid: string, recipeId: string) => {
 export const updateRecipeInDb = async (
 	uid: string,
 	recipeId: string,
-	updateData: Record<string, string | string[] | Ingredient[]>
+	updateData: Record<string, string | string[] | IngredientType[]>
 ) => {
 	const recipeRef = doc(database, `users/${uid}/recipes`, recipeId);
 
@@ -75,7 +75,7 @@ export const updateRecipeInDb = async (
 export const getGroceryLists = async (uid: string) => {
 	const groceryListQuery = query(collection(database, `users/${uid}/groceryLists`));
 
-	const groceryLists: GroceryList[] = [];
+	const groceryLists: GroceryListType[] = [];
 
 	const groceryListsSnapshot = await getDocs(groceryListQuery);
 
@@ -89,7 +89,7 @@ export const getGroceryLists = async (uid: string) => {
 export const updateGroceryList = async (
 	uid: string,
 	listId: string,
-	newItemsArray: Ingredient[]
+	newItemsArray: IngredientType[]
 ) => {
 	const groceryListRef = doc(database, `users/${uid}/groceryLists/${listId}`);
 
