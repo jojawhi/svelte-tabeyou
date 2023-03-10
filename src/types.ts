@@ -7,6 +7,7 @@ export type IngredientType = {
 };
 
 export type RecipeType = {
+	id?: string;
 	author?: string;
 	name: string;
 	ingredientList: IngredientType[];

@@ -15,7 +15,7 @@ const initialRecipeState: RecipeStoreState = {
 export const recipeStore: Writable<RecipeStoreState> = writable(initialRecipeState);
 
 export const recipeHandlers = {
-	addRecipe: async (uid: string, recipe: Recipe) => {
+	addRecipe: async (uid: string, recipe: RecipeType) => {
 		addRecipeToDb(uid, recipe);
 	},
 	deleteRecipe: (uid: string, recipeId: string) => {

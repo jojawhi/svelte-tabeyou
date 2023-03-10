@@ -6,31 +6,15 @@
 
 	export let data: PageData;
 
+	let { currentUser } = data;
+
 	$: displayRecipe = data.recipes.find(recipe => {
 		return recipe.slug === $page.params.slug;
 	}) as RecipeType;
 </script>
 
 <div class="container">
-	<Recipe recipe={displayRecipe} />
-
-	<!-- <h1>{name}</h1>
-	<div>
-		{#each ingredientList as ingred}
-			<div class="ingredient-container">
-				<span>{ingred.name}</span>
-				<span>{ingred.amount}</span>
-				<span>{ingred.unit}</span>
-			</div>
-		{/each}
-	</div>
-	{#if instructions}
-		<div>
-			{#each instructions as instr, index}
-				<p><span>{index + 1}. </span>{instr}</p>
-			{/each}
-		</div>
-	{/if} -->
+	<Recipe recipe={displayRecipe} uid={currentUser.uid} />
 </div>
 
 <!-- <pre>

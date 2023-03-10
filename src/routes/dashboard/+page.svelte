@@ -1,7 +1,7 @@
 <script lang="ts">
 	import AuthUpdate from '$lib/components/AuthUpdate.svelte';
 	import { authStore, authHandlers } from '../../stores/authStore';
-	import Recipes from '$lib/components/RecipesList.svelte';
+	import RecipesList from '$lib/components/RecipesList.svelte';
 
 	// let email = $authStore.currentUser ? $authStore.currentUser?.email : 'None';
 
@@ -18,7 +18,7 @@
 		<div class="dashboard-container">
 			<div class="recipes-container">
 				<h2>Recipes</h2>
-				<Recipes user={$authStore.currentUser} />
+				<RecipesList />
 			</div>
 			<div class="grocery-list-container">
 				<h2>Grocery List</h2>

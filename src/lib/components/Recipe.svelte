@@ -1,18 +1,26 @@
 <script lang="ts">
+	import { deleteRecipeFromDb } from '$lib/firebase/firebaseUtils';
+	import { recipeStore } from '../../stores/recipeStore';
 	import type { RecipeType } from '../../types';
 
 	export let recipe: RecipeType;
+	export let uid: string;
 
 	let edit = false;
 
-	let newRecipe: RecipeType = {
-		name: '',
-		ingredientList: [],
-		instructions: [],
-	};
+	const handleDelete = async (recipeId: string) => {
+		// console.log('Before delete: ', $recipeStore.recipes);
+		await deleteRecipeFromDb(uid, recipeId);
 
-	const handleSubmit = () => {
-		console.log(newRecipe);
+		recipeStore.update(storeState => {
+			return {
+				...storeState,
+				recipes: storeState.recipes.filter(recipe => {
+					return recipe.id !== recipeId;
+				}),
+			};
+		});
+		// console.log('After delete: ', $recipeStore.recipes);
 	};
 </script>
 
@@ -42,7 +50,7 @@
 		{/if}
 	</form>
 	<a href={`/recipes/${recipe.slug}/edit`}>Edit Recipe</a>
-	<button>Delete Recipe</button>
+	<button on:click|preventDefault={() => handleDelete(recipe.id)}>Delete Recipe</button>
 </div>
 
 <style>

@@ -10,7 +10,7 @@
 
 <div class="recipes">
 	<aside class="recipe-list-container">
-		<RecipesList user={data.currentUser} />
+		<RecipesList />
 	</aside>
 	<main>
 		<slot />

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { RecipeType } from '../../../types';
+	import { recipeStore } from '../../../stores/recipeStore';
 	import { newRecipeStore, newRecipeHandlers } from '../../../stores/newRecipeStore';
 	import { addRecipeToDb } from '$lib/firebase/firebaseUtils';
 
@@ -8,9 +9,17 @@
 
 	const { currentUser } = data;
 
-	const handleSubmit = () => {
-		// console.log(newRecipe);
-		addRecipeToDb(currentUser.uid, $newRecipeStore);
+	const handleSubmit = async () => {
+		console.log('Before add: ', $recipeStore.recipes);
+		await addRecipeToDb(currentUser.uid, $newRecipeStore);
+
+		recipeStore.update(storeState => {
+			return {
+				...storeState,
+				recipes: [...storeState.recipes, $newRecipeStore],
+			};
+		});
+		console.log('After add: ', $recipeStore.recipes);
 	};
 
 	const handleDeleteIngredient = (index: number) => {

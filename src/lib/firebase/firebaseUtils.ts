@@ -45,20 +45,46 @@ export const getRecipes = async (uid: string) => {
 	const recipesSnapshot = await getDocs(recipeQuery);
 
 	recipesSnapshot.forEach(doc => {
-		recipes.push(doc.data());
+		const recipe: RecipeType = doc.data() as RecipeType;
+		recipe.id = doc.id;
+
+		recipes.push(recipe);
 	});
 
 	return recipes;
 };
 
-export const addRecipeToDb = async (uid: string, recipe: RecipeType) => {
-	const recipeRef = await addDoc(collection(database, `users/${uid}/recipes`), recipe);
+const _convertNameToSlug = (recipeName: string) => {
+	const words = recipeName.toLowerCase().split(' ');
+	console.log('Words array: ', words);
 
-	console.log('New recipe ID:', recipeRef.id);
+	const slug = words.join('-');
+	console.log('Slug: ', slug);
+
+	return slug;
+};
+
+export const addRecipeToDb = async (uid: string, recipe: RecipeType) => {
+	const slug = _convertNameToSlug(recipe.name);
+	console.log('Slug to be added: ', slug);
+
+	recipe.slug = slug;
+	console.log('Recipe to be added: ', recipe);
+	try {
+		const recipeRef = await addDoc(collection(database, `users/${uid}/recipes`), recipe);
+
+		console.log('New recipe ID:', recipeRef.id);
+	} catch (error) {
+		console.log(error.message);
+	}
 };
 
 export const deleteRecipeFromDb = async (uid: string, recipeId: string) => {
-	await deleteDoc(doc(database, `users/${uid}/recipes`, recipeId));
+	try {
+		await deleteDoc(doc(database, `users/${uid}/recipes`, recipeId));
+	} catch (error) {
+		throw new Error(error.message);
+	}
 };
 
 export const updateRecipeInDb = async (

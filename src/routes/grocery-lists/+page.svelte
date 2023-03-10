@@ -9,7 +9,7 @@
 
 	onMount(async () => {
 		const groceryLists = await getGroceryLists(user.uid);
-		console.log(groceryLists);
+		// console.log(groceryLists);
 
 		groceryListStore.update((storeState: any) => {
 			return { ...storeState, isLoading: false, items: groceryLists[0].listItems };

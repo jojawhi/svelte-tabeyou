@@ -11,7 +11,7 @@
 	onMount(() => {
 		const unsubscribe = auth.onAuthStateChanged(user => {
 			console.log(user);
-			authStore.update((current: any) => {
+			authStore.update(current => {
 				return { ...current, isLoading: false, currentUser: user };
 			});
 
